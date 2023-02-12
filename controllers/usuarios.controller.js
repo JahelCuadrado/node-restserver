@@ -92,7 +92,7 @@ const usuariosPatch = (req, res=response) => {
 
 
 
-const usuariosDelete = async(req, res=response) => { //TODO
+const usuariosDelete = async(req, res=response) => {
 
     //Capturo el id de la url
     const {id} = req.params;

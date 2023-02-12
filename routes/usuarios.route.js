@@ -26,7 +26,7 @@ router.get('/', usuariosGet);
 
 
 
-router.put('/:id', [ //TODO parametros de URL 1
+router.put('/:id', [
     check('id', 'No es un id valido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
     check('rol').custom(esRolValido),
@@ -35,21 +35,19 @@ router.put('/:id', [ //TODO parametros de URL 1
 
 
 
-router.post('/',[ //TODO usuarios 4
+router.post('/',[
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('password', 'El password deber tener mas de 6 caracteres').isLength({min:6}) ,
     check('correo', 'El correo no es válido').isEmail(),
     check('correo').custom(emailExiste),
     check('rol').custom(esRolValido),
     validarCamposUsuario
-    //check('rol', 'Ese no es un rol permitido').isIn(['ADMIN_ROLE', 'USER_ROLE']) ,
 ], usuariosPost);
 
 
 
-router.delete('/:id', [ //TODO JWT 5
+router.delete('/:id', [
     validarJWT,
-    //esAdminRole,
     tieneRol('ADMIN_ROLE', 'VENTAS_ROLE'),
     check('id', 'No es un id valido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
@@ -63,6 +61,3 @@ router.patch('/', usuariosPatch);
 
 
 module.exports = router;
-// router.get('/', (req, res) => {
-    
-// });

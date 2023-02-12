@@ -35,7 +35,7 @@ class Server {
         this.app.use(cors());
 
         //Lectura y parseo del body
-        this.app.use(express.json())  //TODO datos de un POST 1
+        this.app.use(express.json());
 
         //Directorio publico
         this.app.use(express.static('public'));

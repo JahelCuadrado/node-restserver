@@ -1,14 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso denegado</title>
-</head>
-<body>
-    
-    <h1>Acceso denegado</h1>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script
+            src="https://accounts.google.com/gsi/client"
+            async
+            defer
+        ></script>
+        <title>Google Sign-in</title>
+    </head>
+    <body>
+        <h1>Google Sign-in</h1>
+        <hr />
 
-</body>
+        <!-- TODO: iniciar sesion con google 1, este es el botón para iniciar sesión, esto se haría en el front. El botón hace una peticion post a un endpoint que tenemos que crear, en esta peticion post que estamos creando le estamos mandando un body con un token que nos proporciona google con los datos del usuario  -->
+
+        <!-- Estos dos DIVs son el botón de registro de google -->
+        <div
+            id="g_id_onload"
+            data-client_id="753684416283-e8u58nigk6pf6i6q2lflchts9d2u33bq.apps.googleusercontent.com"
+            data-login_uri="https://your.domain/your_login_endpoint"
+            data-auto_prompt="false"
+            data-callback="handleCredentialResponse"
+        ></div>
+
+        <div
+            class="g_id_signin"
+            data-type="standard"
+            data-size="large"
+            data-theme="outline"
+            data-text="sign_in_with"
+            data-shape="rectangular"
+            data-logo_alignment="left"
+        ></div>
+
+        <button id="google_signout">
+            Signout
+        </button>
+
+
+        <!-- Este es el código que hace la peticion rest -->
+        <script>
+            function handleCredentialResponse(response) {
+               
+                // Google token
+                // console.log('id_token', response.credential);
+                const body = {
+                    id_token: response.credential
+                };
+
+                fetch('http://localhost:8081/api/auth/google', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type':'application/json'
+                    },
+                    body: JSON.stringify(body)
+                })
+                .then(resp => resp.json())
+                .then(resp => {
+                    console.log(resp)
+                    localStorage.setItem('email', resp.usuario.correo)
+                })
+                .catch(console.warn)
+          
+            }
+
+            const button = document.getElementById('google_signout');
+            button.onclick = () => {
+                console.log(google.accounts.id);
+                google.accounts.id.disableAutoSelect()
+                google.accounts.id.revoke(localStorage.getItem('email'), done => {
+                    localStorage.clear();
+                    location.reload();
+                })
+            }
+
+          </script>
+    </body>
 </html>
