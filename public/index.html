@@ -4,6 +4,8 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <!-- Script de google Sigin -->
         <script
             src="https://accounts.google.com/gsi/client"
             async
@@ -15,9 +17,10 @@
         <h1>Google Sign-in</h1>
         <hr />
 
-        <!-- TODO: iniciar sesion con google 1, este es el botón para iniciar sesión, esto se haría en el front. El botón hace una peticion post a un endpoint que tenemos que crear, en esta peticion post que estamos creando le estamos mandando un body con un token que nos proporciona google con los datos del usuario  -->
+        <!-- TODO: iniciar sesion con google 1, este es el botón para iniciar sesión, esto se haría en el front. -->
 
-        <!-- Estos dos DIVs son el botón de registro de google -->
+        <!-- Estos dos DIVs son el botón de registro de google 
+            Aqui ponemos nuestro ID CLIENT, Podemos ver en la documentación de google otros tipos de botones-->
         <div
             id="g_id_onload"
             data-client_id="753684416283-e8u58nigk6pf6i6q2lflchts9d2u33bq.apps.googleusercontent.com"
@@ -36,6 +39,7 @@
             data-logo_alignment="left"
         ></div>
 
+        <!-- Botón para cerrar sesión -->
         <button id="google_signout">
             Signout
         </button>
@@ -45,12 +49,12 @@
         <script>
             function handleCredentialResponse(response) {
                
-                // Google token
-                // console.log('id_token', response.credential);
+                // Creamos un body con el token que nos proporciona google
                 const body = {
                     id_token: response.credential
                 };
 
+                //Hacemos una peticion post al endpoint que vamos a crear mandandole el body anterior con el token
                 fetch('http://localhost:8081/api/auth/google', {
                     method: 'POST',
                     headers: {
@@ -67,7 +71,11 @@
           
             }
 
+            // Script del botón para cerrar sesión
+            // Vinculo el boton con una variable
             const button = document.getElementById('google_signout');
+
+            //Al hacer clic en el botón se cierra sesio, se borra el localstorage y se recarga la pagina.
             button.onclick = () => {
                 console.log(google.accounts.id);
                 google.accounts.id.disableAutoSelect()

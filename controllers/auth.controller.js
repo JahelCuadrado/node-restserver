@@ -76,7 +76,6 @@ const googleSignIn = async(req, res=response) => {  //TODO: iniciar sesion con g
                 nombre: name, 
                 correo: email,
                 password: ':p',
-                rol: 'USER_ROL',
                 img: picture,
                 google: true
             };
@@ -102,7 +101,7 @@ const googleSignIn = async(req, res=response) => {  //TODO: iniciar sesion con g
             token
         })
         
-    //en caso de un error inesperado, deolvemos un estatus 400
+    //en caso de un error inesperado, devolvemos un estatus 400
     } catch (error) {
         console.log(error);
         res.status(400).json({
