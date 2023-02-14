@@ -3,7 +3,7 @@ const { Router                  } = require('express');
 const { check, validationResult } = require('express-validator');
 
 const {
-    validarCamposUsuario,
+    validarCampos,
     validarJWT,
     esAdminRole,
     tieneRol
@@ -30,7 +30,7 @@ router.put('/:id', [
     check('id', 'No es un id valido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
     check('rol').custom(esRolValido),
-    validarCamposUsuario
+    validarCampos
 ] ,usuariosPut); 
 
 
@@ -41,7 +41,7 @@ router.post('/',[
     check('correo', 'El correo no es válido').isEmail(),
     check('correo').custom(emailExiste),
     check('rol').custom(esRolValido),
-    validarCamposUsuario
+    validarCampos
 ], usuariosPost);
 
 
@@ -51,7 +51,7 @@ router.delete('/:id', [
     tieneRol('ADMIN_ROLE', 'VENTAS_ROLE'),
     check('id', 'No es un id valido').isMongoId(),
     check('id').custom(existeUsuarioPorId),
-    validarCamposUsuario
+    validarCampos
 ] ,usuariosDelete);
 
 

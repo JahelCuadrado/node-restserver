@@ -1,7 +1,7 @@
 const { Router               } = require('express');
 const { check                } = require('express-validator');
 const { validarJWT
-        validarCamposUsuario } = require('../middlewares');
+        validarCampos } = require('../middlewares');
 
 const router = Router();
 
@@ -25,7 +25,7 @@ router.get('/:id', (req, res) => {
 router.post('/', [
     validarJWT,
     check('nombre','El nombre es obligatorio').not().isEmpty(),
-    validarCamposUsuario
+    validarCampos
 ] ,(req, res) => {
     res.json('post');
 });

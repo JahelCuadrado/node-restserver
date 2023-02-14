@@ -2,7 +2,7 @@ const { Router } = require('express');
 const { check  } = require('express-validator');
 
 const { login, googleSignIn  } = require('../controllers/auth.controller');
-const { validarCamposUsuario } = require('../middlewares/validar-campos-usuario');
+const { validarCampos } = require('../middlewares/validar-campos-usuario');
 
 
 
@@ -18,7 +18,7 @@ router.post('/login', [
     check('correo',   'El correo es obligatorio'     ).isEmail(),
     check('password', 'La contraseña es obligatorio' ).not().isEmpty(),
 
-    validarCamposUsuario
+    validarCampos
 ] ,login);  
 
 
@@ -26,7 +26,7 @@ router.post('/google', [ //TODO: iniciar sesion con google 2, endpoint que recib
 
     check('id_token','Token de google (id_token) es necesario.').not().isEmpty(),
 
-    validarCamposUsuario
+    validarCampos
 ] ,googleSignIn);  
 
 
