@@ -14,8 +14,10 @@ const coleccionesPermitidas = [
 
 const buscarUsuarios = async(termino='', res=response) => {
 
-    const esMongoID = isValidObjectId(termino); //true
+    //Comprobamos que es un id de monfo
+    const esMongoID = isValidObjectId(termino);
 
+    //Si lo es, buscamos el usuario y lo devolvemos, si no existe devolvemos un array vacio.
     if (esMongoID) {
         const usuario = await Usuario.findById(termino);
         return res.json({
@@ -23,13 +25,16 @@ const buscarUsuarios = async(termino='', res=response) => {
         })
     }
 
+    //Utilizamos regex para evitar la sensibilidad entre mayusculas y minusculas
     const regex = new RegExp(termino, 'i')
 
+    //Buscamos usuarios que coincidan con los siguientes terminos de busqueda utilizando and y or.
     const usuarios = await Usuario.find({
         $or: [{nombre: regex}, {correo: regex}],
         $and: [{estado:true}]
     })
 
+    //Devolvemos los usuarios
     res.json({
         results: usuarios
     })
@@ -108,14 +113,17 @@ const buscarRoles = async(termino='', res=response) => {
 
 const buscar = ( req, res = response) =>{
 
+    //Desestructuramos la colección y el termino de busqueda.
     const { coleccion, termino } = req.params;
 
+    // Comprobamos si la colección enviada está dentro del array de las collecciones permitidas.
     if( !coleccionesPermitidas.includes(coleccion) ){
         return res.status(400).json({
             msg: `Las colecciones permitidas son: ${coleccionesPermitidas}`
         })
     }
 
+    //En base a la coleccion ejecutamos una busqueda u otra
     switch (coleccion) {
         case 'categorias':
             buscarCategorias(termino, res)

@@ -4,7 +4,7 @@ const { buscar } = require('../controllers/buscar.controller');
 const router = Router();
 
 
-router.get('/:coleccion/:termino', buscar)
+router.get('/:coleccion/:termino', buscar);
 
 
 

@@ -51,11 +51,22 @@ const existeProducto = async(id) => {
     }
 }
 
+//TODO uploads Actualiza imagen 3
+const coleccionesPermitidas = (coleccion='', colecciones =[]) => {
+    const incluida = colecciones.includes(coleccion);
+    if (!incluida) {
+        throw new Error(`La colección ${coleccion} no está permitida, solo: ${colecciones}`);
+    }
+
+    return true;
+}
+
 
 module.exports = {
     esRolValido,
     emailExiste,
     existeUsuarioPorId,
     existeCategoria,
-    existeProducto
+    existeProducto,
+    coleccionesPermitidas
 }
