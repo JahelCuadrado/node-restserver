@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose'); //TODO categorias
+const {Schema, model} = require('mongoose');
 
 const CategoriaSchema = Schema({
     nombre: {

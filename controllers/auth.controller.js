@@ -55,7 +55,7 @@ const login = async(req=request, res=response) => {
 
 
 
-const googleSignIn = async(req, res=response) => {  //TODO: iniciar sesion con google 4
+const googleSignIn = async(req, res=response) => {
 
     //obtenemos el token del body
     const {id_token} = req.body;

@@ -15,7 +15,7 @@ class Server {
         this.categoriasPath = '/api/categorias';
         this.productosPath  = '/api/productos';
         this.buscarPath     = '/api/buscar';
-        this.uploadsPath    = '/api/uploads';  //TODO uploads 1
+        this.uploadsPath    = '/api/uploads';
 
         //conectar a las base de datos
         this.conectarDB();
@@ -46,7 +46,7 @@ class Server {
         this.app.use(express.static('public'));
 
         //Fileupload, carga de archivos
-        this.app.use(fileUpload({ //TODO uploads 3
+        this.app.use(fileUpload({
             useTempFiles : true,
             tempFileDir : '/tmp/',
             createParentPath: true
@@ -61,7 +61,7 @@ class Server {
         this.app.use( this.categoriasPath, require('../routes/categorias.route' )); 
         this.app.use( this.productosPath,  require('../routes/productos.route'  )); 
         this.app.use( this.buscarPath,     require('../routes/buscar.route'     )); 
-        this.app.use( this.uploadsPath,    require('../routes/uploads.route'    )); //TODO uploads 2
+        this.app.use( this.uploadsPath,    require('../routes/uploads.route'    ));
     }
 
 

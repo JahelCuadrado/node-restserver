@@ -2,7 +2,6 @@ const       path     = require('path');
 const { v4: uuidv4 } = require('uuid');
 
 
-//TODO uploads 5
 //En nuestro helper vamos a recibir los archivos, las extensiones permitidas y el nombre de la carpeta donde se guardarán los archivos
 const subirArchivo = ( files, extensionesPermitidas = ['png', 'jpg', 'jpeg', 'gif'], carpeta = '' ) => {
     
@@ -10,6 +9,8 @@ const subirArchivo = ( files, extensionesPermitidas = ['png', 'jpg', 'jpeg', 'gi
 
         //Extraemos el archivo de la request
         const {archivo} = files;
+
+        //Extraemos solo la extensión del archivo mandado
         const nombreCortado = archivo.name.split('.');
         const extension = nombreCortado[nombreCortado.length - 1]
 
@@ -20,6 +21,7 @@ const subirArchivo = ( files, extensionesPermitidas = ['png', 'jpg', 'jpeg', 'gi
         
         //Creamos un nombre unico para el archivo gracias a la paquete uuid
         const nombreTemporal = uuidv4() + '.' + extension;
+        
         //Esta línea de código se está utilizando para definir la ruta donde se guardará el archivo que se está subiendo al servidor compuesta, por la ruta actual + uploads yendo hacia atrás + la carpeta mandada + el nombre temporal creado.
         const uploadPath = path.join(__dirname, '../uploads/', carpeta,  nombreTemporal);
     

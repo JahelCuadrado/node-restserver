@@ -22,7 +22,7 @@ router.post('/login', [
 ] ,login);  
 
 
-router.post('/google', [ //TODO: iniciar sesion con google 2, endpoint que recibe un token llamado id_token en el body.
+router.post('/google', [
 
     check('id_token','Token de google (id_token) es necesario.').not().isEmpty(),
 

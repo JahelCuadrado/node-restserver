@@ -15,16 +15,16 @@ const router = Router();
 
 //Endpoints
 
-//TODO uploads 4
+
 router.post('/', validarArchivoSubido, cargarArchivo);
 
-//TODO uploads Actualiza imagen 1
+
 router.put('/:coleccion/:id', [
     validarArchivoSubido,
     check('id', 'El id debe ser un id de Mongo válido').isMongoId(),
     check('coleccion').custom( c => coleccionesPermitidas(c, ['usuarios', 'productos'])),
     validarCampos
-], actualizarImagenCloudinary); //TODO cloudinary 4
+], actualizarImagenCloudinary);
 
 
 router.get('/:coleccion/:id', [

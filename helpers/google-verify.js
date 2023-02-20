@@ -2,7 +2,7 @@ const {OAuth2Client} = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 
- //TODO: iniciar sesion con google 3, creamos la funcion que nos proporciona google en su documentacion (https://acortar.link/s4N97I).
+ //creamos la funcion que nos proporciona google en su documentacion (https://acortar.link/s4N97I).
 
 //La función recibirá el token que nos proporcionó google anteriormente
 async function googleVerify( token = '' ) { 

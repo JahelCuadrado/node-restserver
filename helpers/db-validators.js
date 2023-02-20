@@ -51,7 +51,7 @@ const existeProducto = async(id) => {
     }
 }
 
-//TODO uploads Actualiza imagen 3
+
 const coleccionesPermitidas = (coleccion='', colecciones =[]) => {
     const incluida = colecciones.includes(coleccion);
     if (!incluida) {
